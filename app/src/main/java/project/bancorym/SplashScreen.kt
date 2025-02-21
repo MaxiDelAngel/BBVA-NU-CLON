@@ -4,6 +4,7 @@ import android.window.SplashScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -13,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,14 +34,29 @@ fun SplashScreen(navController: NavHostController){
 }
 
 @Composable
-fun Splash(){
-    Column(
-        modifier = Modifier.fillMaxSize()
-            .background(Color.Blue),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+fun Splash() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
     ) {
-        Image(painter = painterResource(id = R.drawable.logoblanco), contentDescription = "Logo Banco", modifier = Modifier.size(1000.dp,1000.dp))
+        // Imagen de fondo
+        Image(
+            painter = painterResource(id = R.drawable.fondopantallasplash),
+            contentDescription = "Fondo",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.logoblanco),
+                contentDescription = "Logo Banco",
+                modifier = Modifier.size(1000.dp, 1000.dp)
+            )
+        }
     }
 }
 
