@@ -1,7 +1,5 @@
 package project.bancorym
 
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +21,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,22 +33,34 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import project.bancorym.navigation.AppScreens
+import project.bancorym.navigation.MyBiometricViewModel
 
 @Composable
-fun LoginScreen(navController: NavController) {
-    //authenticate: (auth: (Boolean) -> Unit) -> Unit
+fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
     var auth by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val activity = context as FragmentActivity
+
+    // Escucha los cambios en biometricLogInSuccessful y navega si es exitoso
+    LaunchedEffect(viewModel.biometricLogInSuccessful) {
+        if (viewModel.biometricLogInSuccessful == 1) {
+            navController.navigate(AppScreens.MainScreen.route)
+        }
+    }
+
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -119,15 +130,7 @@ fun LoginScreen(navController: NavController) {
                             Spacer(modifier = Modifier.size(30.dp))
                             Button(
                                 onClick = {
-                                    /*
-                                    authenticate{
-                                        auth = it
-                                        if(auth){
-                                            navController.navigate(AppScreens.MainScreen.route)
-                                        } else {
-                                            navController.navigate(AppScreens.LoginScreen.route)
-                                        }
-                                    }*/
+                                    viewModel.autenticar(activity, context)
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -230,5 +233,6 @@ fun LoginScreen(navController: NavController) {
 @Composable
 fun LoginScreenPreview(){
     val navController = rememberNavController()
-    LoginScreen(navController)
+    val biometricViewModel: MyBiometricViewModel = viewModel()
+    LoginScreen(navController, biometricViewModel)
 }

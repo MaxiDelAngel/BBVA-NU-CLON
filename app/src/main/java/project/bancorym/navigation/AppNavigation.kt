@@ -1,6 +1,7 @@
 package project.bancorym.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -10,8 +11,8 @@ import project.bancorym.SplashScreen
 
 @Composable
 fun AppNavigation() {
-    //authenticate: (auth: (Boolean) -> Unit) -> Unit
     val navController = rememberNavController()
+    val biometricViewModel: MyBiometricViewModel = viewModel()
     NavHost(
         navController = navController,
         startDestination = AppScreens.SplashScreen.route
@@ -20,8 +21,7 @@ fun AppNavigation() {
             SplashScreen(navController)
         }
         composable(AppScreens.LoginScreen.route) {
-            //LoginScreen(navController, authenticate)
-            LoginScreen(navController)
+            LoginScreen(navController, biometricViewModel)
         }
         composable(AppScreens.MainScreen.route) {
             MainScreen()
