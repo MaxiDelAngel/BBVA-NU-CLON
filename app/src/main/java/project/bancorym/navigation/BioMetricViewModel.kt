@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavController
 
 class MyBiometricViewModel: ViewModel() {
 
@@ -83,7 +84,7 @@ class MyBiometricViewModel: ViewModel() {
         }
     }
 
-    fun autenticar(activity: FragmentActivity, context: Context) {
+    fun autenticar(activity: FragmentActivity, context: Context, navController: NavController) {
         biometricLogInSuccessful = -1
         val executor = ContextCompat.getMainExecutor(context)
         val biometricPrompt = BiometricPrompt(
@@ -103,6 +104,7 @@ class MyBiometricViewModel: ViewModel() {
                     super.onAuthenticationSucceeded(result)
                     biometricLogInSuccessful = 1
                     Toast.makeText(context, "EXITO", Toast.LENGTH_LONG).show()
+                    navController.navigate(AppScreens.MainScreen.route)
                     /*Aquí ya pudo reconocer la huella entonces aplicar logica por ejemplo que la functio autenticar reciba el navcontroller para así
 
                     navController.navigate(HOME)

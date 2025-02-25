@@ -55,11 +55,12 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
     val activity = context as FragmentActivity
 
     // Escucha los cambios en biometricLogInSuccessful y navega si es exitoso
+    /*
     LaunchedEffect(viewModel.biometricLogInSuccessful) {
         if (viewModel.biometricLogInSuccessful == 1) {
             navController.navigate(AppScreens.MainScreen.route)
         }
-    }
+    }*/
 
 
     Column(
@@ -130,7 +131,10 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                             Spacer(modifier = Modifier.size(30.dp))
                             Button(
                                 onClick = {
-                                    viewModel.autenticar(activity, context)
+                                    //viewModel.autenticar(activity, context, navController)
+                                    auth = true
+                                    navController.popBackStack()
+                                    navController.navigate(AppScreens.MainScreen.route)
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
