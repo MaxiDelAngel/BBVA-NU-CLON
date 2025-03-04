@@ -59,4 +59,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation("androidx.biometric:biometric:1.4.0-alpha02")
+    implementation ("com.airbnb.android:lottie-compose:6.6.2")
 }

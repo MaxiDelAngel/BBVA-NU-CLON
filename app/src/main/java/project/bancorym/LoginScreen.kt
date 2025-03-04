@@ -14,14 +14,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,8 +47,10 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import project.bancorym.navigation.AppScreens
 import project.bancorym.navigation.MyBiometricViewModel
 
@@ -53,190 +59,258 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
     var auth by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val activity = context as FragmentActivity
-
-    // Escucha los cambios en biometricLogInSuccessful y navega si es exitoso
-    /*
-    LaunchedEffect(viewModel.biometricLogInSuccessful) {
-        if (viewModel.biometricLogInSuccessful == 1) {
-            navController.navigate(AppScreens.MainScreen.route)
-        }
-    }*/
-
-
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gifwelcome))
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
-        //Primera parte del diseño
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(400.dp)
-                .background(Color.LightGray)
+        Column(
+            modifier = Modifier.wrapContentSize(),
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.fondologin),
-                contentDescription = "Fondo",
+            // Primera parte del diseño
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .drawWithContent {
-                        drawContent()
-                        drawRect(
-                            color = Color(0xFF111D79),
-                            alpha = 0.8f
-                        )
-                    },
-                contentScale = ContentScale.Crop
-            )
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Top
+                    .fillMaxWidth()
+                    .height(400.dp)
+                    .background(Color.LightGray)
             ) {
-                Row(
+                Image(
+                    painter = painterResource(id = R.drawable.fondologin),
+                    contentDescription = "Fondo",
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(80.dp)
-                        //.background(Color.Red)
-                        .padding(10.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(text="RYM", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(230.dp)
-                        //.background(Color.Green)
-                        .padding(10.dp)
+                        .fillMaxSize()
+                        .drawWithContent {
+                            drawContent()
+                            drawRect(
+                                color = Color(0xFF111D79),
+                                alpha = 0.8f
+                            )
+                        },
+                    contentScale = ContentScale.Crop
+                )
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Top
                 ) {
                     Row(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(80.dp)
+                            .padding(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "RYM",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 25.sp
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(230.dp)
+                            .padding(10.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "Bienvenido Usuario",
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 25.sp,
+                                )
+                                Spacer(modifier = Modifier.size(10.dp))
+                                Text(
+                                    text = "Cambiar de usuario",
+                                    color = Color(0xFF2196F3),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 18.sp,
+                                )
+                                Spacer(modifier = Modifier.size(30.dp))
+                                Button(
+                                    onClick = {
+                                        //viewModel.autenticar(activity, context, navController)
+                                        auth = true
+                                        navController.popBackStack()
+                                        navController.navigate(AppScreens.MainScreen.route)
+                                    },
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(50.dp)
+                                        .shadow(5.dp, shape = RectangleShape),
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color.White,
+                                        contentColor = Color(0xFF2196F3)
+                                    ),
+                                    shape = RectangleShape
+                                ) {
+                                    Text(
+                                        text = "Acceder a tu cuenta",
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 15.sp,
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                }
+                            }
+                        }
+                        Icon(
+                            imageVector = Icons.Default.AccountCircle,
+                            contentDescription = "icono",
+                            tint = Color(0xFF2196F3),
+                            modifier = Modifier
+                                .size(80.dp)
+                                .align(Alignment.TopEnd)
+                                .padding(10.dp, top = 30.dp)
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(90.dp)
+                            .padding(5.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxHeight(),
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ) {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle,
+                                contentDescription = "icono",
+                                tint = Color(0xFF2196F3),
+                                modifier = Modifier.size(60.dp)
+                            )
                             Text(
-                                text = "Bienvenido Usuario",
+                                text = "Token Movil",
                                 color = Color.White,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 25.sp,
+                                textAlign = TextAlign.Center,
                             )
-                            Spacer(modifier = Modifier.size(10.dp))
+                        }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Column(
+                            modifier = Modifier.fillMaxHeight(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle,
+                                contentDescription = "icono",
+                                tint = Color(0xFF2196F3),
+                                modifier = Modifier.size(60.dp)
+                            )
                             Text(
-                                text = "Cambiar de usuario",
-                                color = Color(0xFF2196F3),
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 18.sp,
+                                text = "Operación QR",
+                                color = Color.White,
+                                textAlign = TextAlign.Center,
                             )
-                            Spacer(modifier = Modifier.size(30.dp))
-                            Button(
-                                onClick = {
-                                    //viewModel.autenticar(activity, context, navController)
-                                    auth = true
-                                    navController.popBackStack()
-                                    navController.navigate(AppScreens.MainScreen.route)
-                                },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(50.dp)
-                                    .shadow(5.dp, shape = RectangleShape),
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color.White,
-                                    contentColor = Color(0xFF2196F3)
-                                ),
-                                shape = RectangleShape
-                            ) {
-                                Text(
-                                    text = "Acceder a tu cuenta",
-                                    textAlign = TextAlign.Center,
-                                    fontSize = 15.sp,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
+                        }
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Column(
+                            modifier = Modifier.fillMaxHeight(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle,
+                                contentDescription = "icono",
+                                tint = Color(0xFF2196F3),
+                                modifier = Modifier.size(60.dp)
+                            )
+                            Text(
+                                text = "Emergencia",
+                                color = Color.White,
+                                textAlign = TextAlign.Center,
+                            )
                         }
                     }
-                    Icon(
-                        imageVector = Icons.Default.AccountCircle,
-                        contentDescription = "icono",
-                        tint = Color(0xFF2196F3),
-                        modifier = Modifier
-                            .size(80.dp)
-                            .align(Alignment.TopEnd)
-                            .padding(10.dp, top=30.dp)
-                    )
                 }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(90.dp)
-                        //.background(Color.Black)
-                        .padding(5.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(
-                        modifier = Modifier.fillMaxHeight(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.AccountCircle,
-                            contentDescription = "icono",
-                            tint = Color(0xFF2196F3),
-                            modifier = Modifier
-                                .size(60.dp)
-                        )
-                        Text(
-                            text = "Token Movil",
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Column(
-                        modifier = Modifier.fillMaxHeight(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.AccountCircle,
-                            contentDescription = "icono",
-                            tint = Color(0xFF2196F3),
-                            modifier = Modifier
-                                .size(60.dp)
-                        )
-                        Text(
-                            text = "Operación QR",
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Column(
-                        modifier = Modifier.fillMaxHeight(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.AccountCircle,
-                            contentDescription = "icono",
-                            tint = Color(0xFF2196F3),
-                            modifier = Modifier
-                                .size(60.dp)
-                        )
-                        Text(
-                            text = "Emergencia",
-                            color = Color.White,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                }
+            } // Fin de la primera parte del diseño
+        }
+        Column( // Segunda parte del diseño
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFFEAEAEA))
+                .padding(start = 16.dp, end = 16.dp),
+                //.verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(), // Permite centrar la animación
+                contentAlignment = Alignment.Center // Centra la animación
+            ) {
+                LottieAnimation(
+                    composition = composition,
+                    iterations = Int.MAX_VALUE,
+                    modifier = Modifier.size(200.dp)
+                )
             }
-        } //Fin de la primera parte del diseño
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "Hola futuro inversionista",
+                color = Color.Black,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Left
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "Hoy es el mejor día para empezar. Invierte en un Pagaré " +
+                        "RYM y asegura rendimientos desde el inicio. Hazlo en " +
+                        "Oportunidades.",
+                color = Color.DarkGray,
+                fontSize = 15.sp,
+                textAlign = TextAlign.Justify,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(30.dp))
+
+        } // Fin de la segunda parte del diseño
     }
 }
 
-@Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview(){
     val navController = rememberNavController()
     val biometricViewModel: MyBiometricViewModel = viewModel()
     LoginScreen(navController, biometricViewModel)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Cardview(){
+    Column(modifier=Modifier.fillMaxSize().padding(6.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,) {
+        Card(
+            modifier = Modifier.fillMaxWidth()
+                .wrapContentHeight()
+                .padding(2.dp)
+        ){
+            //Poner imagen de seguridad
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "Detecta las estafas que usan los " +
+                        "delincuentes",
+                color = Color.Black,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Left
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = "Entra a rym.mx y en la sección 'Consejos de " +
+                        "Seguridad' encontraras los tips que te ayudarán a " +
+                        "detectar correos, llamadas o mensajes falsos.",
+                color = Color.DarkGray,
+                fontSize = 15.sp,
+                textAlign = TextAlign.Justify,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+        }
+    }
 }
