@@ -20,6 +20,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -62,6 +63,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gifwelcome))
     Column(
         modifier = Modifier.fillMaxSize()
+            .verticalScroll(rememberScrollState()),
     ) {
         Column(
             modifier = Modifier.wrapContentSize(),
@@ -70,7 +72,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(400.dp)
+                    .height(410.dp)
                     .background(Color.LightGray)
             ) {
                 Image(
@@ -168,7 +170,6 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                 .padding(10.dp, top = 30.dp)
                         )
                     }
-
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -182,7 +183,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                         ) {
                             Icon(
                                 imageVector = Icons.Default.AccountCircle,
-                                contentDescription = "icono",
+                                contentDescription = "icono Token Movil",
                                 tint = Color(0xFF2196F3),
                                 modifier = Modifier.size(60.dp)
                             )
@@ -199,7 +200,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                         ) {
                             Icon(
                                 imageVector = Icons.Default.AccountCircle,
-                                contentDescription = "icono",
+                                contentDescription = "icono operacion",
                                 tint = Color(0xFF2196F3),
                                 modifier = Modifier.size(60.dp)
                             )
@@ -216,7 +217,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                         ) {
                             Icon(
                                 imageVector = Icons.Default.AccountCircle,
-                                contentDescription = "icono",
+                                contentDescription = "icono emergencia",
                                 tint = Color(0xFF2196F3),
                                 modifier = Modifier.size(60.dp)
                             )
@@ -235,13 +236,12 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                 .fillMaxWidth()
                 .background(Color(0xFFEAEAEA))
                 .padding(start = 16.dp, end = 16.dp),
-                //.verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.Start
         ) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(), // Permite centrar la animación
-                contentAlignment = Alignment.Center // Centra la animación
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
                 LottieAnimation(
                     composition = composition,
@@ -267,8 +267,51 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                 textAlign = TextAlign.Justify,
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.height(30.dp))
-
+            Spacer(modifier = Modifier.height(20.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFFEAEAEA))
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .background(Color.White)
+                        .padding(8.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize()
+                            .padding(6.dp),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "Icono de Informacion",
+                            tint = Color(0xFF2196F3),
+                            modifier = Modifier.size(50.dp)
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = "Detecta las estafas que usan los delincuentes",
+                            color = Color.Black,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Start
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = "Entra a rym.mx y en la sección 'Consejos de Seguridad' encontrarás los tips que te ayudarán a detectar correos, llamadas o mensajes falsos.",
+                            color = Color.DarkGray,
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Justify,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+            }
         } // Fin de la segunda parte del diseño
     }
 }
@@ -278,39 +321,4 @@ fun LoginScreenPreview(){
     val navController = rememberNavController()
     val biometricViewModel: MyBiometricViewModel = viewModel()
     LoginScreen(navController, biometricViewModel)
-}
-
-@Preview(showBackground = true)
-@Composable
-fun Cardview(){
-    Column(modifier=Modifier.fillMaxSize().padding(6.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,) {
-        Card(
-            modifier = Modifier.fillMaxWidth()
-                .wrapContentHeight()
-                .padding(2.dp)
-        ){
-            //Poner imagen de seguridad
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "Detecta las estafas que usan los " +
-                        "delincuentes",
-                color = Color.Black,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Left
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "Entra a rym.mx y en la sección 'Consejos de " +
-                        "Seguridad' encontraras los tips que te ayudarán a " +
-                        "detectar correos, llamadas o mensajes falsos.",
-                color = Color.DarkGray,
-                fontSize = 15.sp,
-                textAlign = TextAlign.Justify,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-        }
-    }
 }
