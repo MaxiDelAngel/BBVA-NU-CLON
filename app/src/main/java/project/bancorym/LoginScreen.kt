@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -62,7 +63,8 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
     val activity = context as FragmentActivity
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gifwelcome))
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState()),
     ) {
         Column(
@@ -121,14 +123,14 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                 modifier = Modifier.fillMaxWidth()
                             ) {
                                 Text(
-                                    text = "Bienvenido Usuario",
+                                    text = stringResource(R.string.bienvenida_login),
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 25.sp,
                                 )
                                 Spacer(modifier = Modifier.size(10.dp))
                                 Text(
-                                    text = "Cambiar de usuario",
+                                    text = stringResource(R.string.cambiar_de_usuario),
                                     color = Color(0xFF2196F3),
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 18.sp,
@@ -152,7 +154,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                     shape = RectangleShape
                                 ) {
                                     Text(
-                                        text = "Acceder a tu cuenta",
+                                        text = stringResource(R.string.acceder_a_tu_cuenta),
                                         textAlign = TextAlign.Center,
                                         fontSize = 15.sp,
                                         modifier = Modifier.fillMaxWidth()
@@ -188,7 +190,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                 modifier = Modifier.size(60.dp)
                             )
                             Text(
-                                text = "Token Movil",
+                                text = stringResource(R.string.token_movil),
                                 color = Color.White,
                                 textAlign = TextAlign.Center,
                             )
@@ -205,7 +207,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                 modifier = Modifier.size(60.dp)
                             )
                             Text(
-                                text = "Operación QR",
+                                text = stringResource(R.string.operacion_qr),
                                 color = Color.White,
                                 textAlign = TextAlign.Center,
                             )
@@ -222,7 +224,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                 modifier = Modifier.size(60.dp)
                             )
                             Text(
-                                text = "Emergencia",
+                                text = stringResource(R.string.emergencia),
                                 color = Color.White,
                                 textAlign = TextAlign.Center,
                             )
@@ -251,7 +253,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
             }
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Hola futuro inversionista",
+                text = stringResource(R.string.hola_futuro_inversionista),
                 color = Color.Black,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
@@ -259,9 +261,11 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Hoy es el mejor día para empezar. Invierte en un Pagaré " +
-                        "RYM y asegura rendimientos desde el inicio. Hazlo en " +
-                        "Oportunidades.",
+                text = buildString { // Para mejorar el manejo del string de Español a Ingles
+                    append(stringResource(R.string.hoy_es_el_mejor_d_a_para_empezar_invierte_en_un_pagar))
+                    append(stringResource(R.string.rym_y_asegura_rendimientos_desde_el_inicio_hazlo_en))
+                    append(stringResource(R.string.oportunidades))
+                },
                 color = Color.DarkGray,
                 fontSize = 15.sp,
                 textAlign = TextAlign.Justify,
@@ -281,7 +285,8 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                         .padding(8.dp)
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier
+                            .fillMaxSize()
                             .padding(6.dp),
                         horizontalAlignment = Alignment.Start
                     ) {
@@ -293,7 +298,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            text = "Detecta las estafas que usan los delincuentes",
+                            text = stringResource(R.string.detecta_las_estafas_que_usan_los_delincuentes),
                             color = Color.Black,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
@@ -301,7 +306,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            text = "Entra a rym.mx y en la sección 'Consejos de Seguridad' encontrarás los tips que te ayudarán a detectar correos, llamadas o mensajes falsos.",
+                            text = stringResource(R.string.Tips_para_seguridad),
                             color = Color.DarkGray,
                             fontSize = 15.sp,
                             textAlign = TextAlign.Justify,
