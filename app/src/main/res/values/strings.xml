@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BancoRYM</string>
-    <string name="bienvenida_login">Bienvenido Usuario</string>
+    <string name="bienvenida_login">"Bienvenido "</string>
     <string name="cambiar_de_usuario">Cambiar de usuario</string>
     <string name="acceder_a_tu_cuenta">Acceder a tu cuenta</string>
     <string name="token_movil">Token Movil</string>
@@ -12,4 +12,5 @@
     <string name="oportunidades">Oportunidades.</string>
     <string name="detecta_las_estafas_que_usan_los_delincuentes">Detecta las estafas que usan los delincuentes</string>
     <string name="Tips_para_seguridad">Entra a rym.mx y en la sección \'Consejos de Seguridad\' encontrarás los tips que te ayudarán a detectar correos, llamadas o mensajes falsos.</string>
+    <string name="bienvenido_usuario">Bienvenido Usuario</string>
 </resources>

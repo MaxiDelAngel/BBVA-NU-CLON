@@ -1,6 +1,8 @@
 package project.bancorym.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import project.bancorym.LoginScreen
 import project.bancorym.MainScreen
 import project.bancorym.SplashScreen
+import project.bancorym.models.InfoUser
 
 @Composable
 fun AppNavigation() {
@@ -24,7 +27,9 @@ fun AppNavigation() {
             LoginScreen(navController, biometricViewModel)
         }
         composable(AppScreens.MainScreen.route) {
-            MainScreen()
+            val context: Context = LocalContext.current
+            val infoUser = InfoUser(context)
+            MainScreen(infoUser)
         }
     }
 }

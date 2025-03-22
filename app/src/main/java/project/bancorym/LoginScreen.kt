@@ -27,6 +27,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +54,7 @@ import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import project.bancorym.models.InfoUser
 import project.bancorym.navigation.AppScreens
 import project.bancorym.navigation.MyBiometricViewModel
 
@@ -62,6 +64,8 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
     val context = LocalContext.current
     val activity = context as FragmentActivity
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.gifwelcome))
+    val infoUser = InfoUser(context)
+    val savedName by infoUser.name.collectAsState(initial = "")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -122,12 +126,21 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                             Column(
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text(
-                                    text = stringResource(R.string.bienvenida_login),
-                                    color = Color.White,
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 25.sp,
-                                )
+                                if (savedName.isNotEmpty()){
+                                    Text(
+                                        text = stringResource(R.string.bienvenida_login) + savedName,
+                                        color = Color.White,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 25.sp,
+                                    )
+                                } else {
+                                    Text(
+                                        text = stringResource(R.string.bienvenido_usuario),
+                                        color = Color.White,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 25.sp,
+                                    )
+                                }
                                 Spacer(modifier = Modifier.size(10.dp))
                                 Text(
                                     text = stringResource(R.string.cambiar_de_usuario),
