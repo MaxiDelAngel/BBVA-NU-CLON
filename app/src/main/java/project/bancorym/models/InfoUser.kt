@@ -12,27 +12,41 @@ import kotlinx.coroutines.flow.map
 
 class InfoUser (private val context: Context) {
 
-    companion object { //para que sea singleton el acceso al archivo
+    companion object {
         val Context.dataStore: DataStore<Preferences>
                 by preferencesDataStore(name = "settings")
 
-        val AGE = intPreferencesKey("edad")
         val NAME = stringPreferencesKey("nombre")
+        val LASTNAME = stringPreferencesKey("apellidos")
+        val PASSWORD = stringPreferencesKey("contrasena")
+        val EMAIL = stringPreferencesKey("correo")
+        val PHONE = stringPreferencesKey("celular")
+        val CARD = intPreferencesKey("tarjeta")
     }
 
-    //Flow parte de las corrutinas para transmiti(recibir) el flujo de datos tipo Entero de forma asincrona
-    val age: Flow<Int> = context.dataStore.data.map { informacion -> // No type safety.
-        informacion[AGE] ?: 0
-    }
-    //Flow parte de las corrutinas para transmiti(recibir) el flujo de
-    // datos tipo String de forma asincrona
     val name: Flow<String> = context.dataStore.data.map{ informacion -> informacion[NAME] ?: "" }
+    val lastName: Flow<String> = context.dataStore.data.map{ informacion -> informacion[LASTNAME] ?: "" }
+    val password: Flow<String> = context.dataStore.data.map{ informacion -> informacion[PASSWORD] ?: "" }
+    val email: Flow<String> = context.dataStore.data.map{ informacion -> informacion[EMAIL] ?: "" }
+    val phone: Flow<String> = context.dataStore.data.map{ informacion -> informacion[PHONE] ?: "" }
+    val card: Flow<Int> = context.dataStore.data.map{ informacion -> informacion[CARD] ?: 0 }
 
-    suspend fun savePersonData(personName: String, personAge: Int) {
+
+
+    suspend fun savePersonData(personName: String, personLastName: String, personPassword: String, personEmail: String, personPhone: String, personCard: Int) {
         context.dataStore.edit { settings ->
-            settings[AGE] = personAge
             settings [NAME] = personName
+            settings [LASTNAME] = personLastName
+            settings [PASSWORD] = personPassword
+            settings [EMAIL] = personEmail
+            settings [PHONE] = personPhone
+            settings [CARD] = personCard
+        }
+    }
 
+    suspend fun clearData() {
+        context.dataStore.edit { settings ->
+            settings.clear()
         }
     }
 }

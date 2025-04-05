@@ -1,7 +1,8 @@
-package project.bancorym
+package project.bancorym.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,6 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +31,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +45,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentActivity
@@ -54,12 +54,15 @@ import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import kotlinx.coroutines.launch
+import project.bancorym.R
 import project.bancorym.models.InfoUser
 import project.bancorym.navigation.AppScreens
-import project.bancorym.navigation.MyBiometricViewModel
+import project.bancorym.viewsmodels.MyBiometricViewModel
 
 @Composable
 fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
+    val coroutineScope = rememberCoroutineScope()
     var auth by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val activity = context as FragmentActivity
@@ -154,7 +157,11 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                         //viewModel.autenticar(activity, context, navController)
                                         auth = true
                                         navController.popBackStack()
-                                        navController.navigate(AppScreens.MainScreen.route)
+                                        if (savedName.isNotEmpty()){
+                                            navController.navigate(AppScreens.MainScreen.route)
+                                        }else{
+                                            navController.navigate(AppScreens.RegisterScreen.route)
+                                        }
                                     },
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -200,7 +207,7 @@ fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {
                                 imageVector = Icons.Default.AccountCircle,
                                 contentDescription = "icono Token Movil",
                                 tint = Color(0xFF2196F3),
-                                modifier = Modifier.size(60.dp)
+                                modifier = Modifier.size(60.dp).clickable { coroutineScope.launch{ infoUser.clearData() } }
                             )
                             Text(
                                 text = stringResource(R.string.token_movil),

@@ -1,4 +1,4 @@
-package project.bancorym
+package project.bancorym.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
+import project.bancorym.R
 import project.bancorym.navigation.AppScreens
 
 @Composable
