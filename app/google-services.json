@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "226497019110",
+    "project_id": "bancorym",
+    "storage_bucket": "bancorym.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226497019110:android:6adef56296c53deb6dcf27",
+        "android_client_info": {
+          "package_name": "project.bancorym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzGizwZgqbW9RBVZRrBTjpcGgF-miPBgo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
