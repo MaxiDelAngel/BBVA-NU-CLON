@@ -1,4 +1,4 @@
-package project.bancorym.views
+package project.bancorym.projectRYM.ui.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -56,9 +56,9 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
 import project.bancorym.R
-import project.bancorym.models.InfoUser
-import project.bancorym.navigation.AppScreens
-import project.bancorym.viewsmodels.MyBiometricViewModel
+import project.bancorym.projectRYM.ui.models.InfoUser
+import project.bancorym.projectRYM.navigation.AppScreens
+import project.bancorym.projectRYM.ui.viewsmodels.MyBiometricViewModel
 
 @Composable
 fun LoginScreen(navController: NavController, viewModel: MyBiometricViewModel) {

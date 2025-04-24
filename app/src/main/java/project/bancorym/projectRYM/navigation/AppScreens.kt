@@ -1,4 +1,4 @@
-package project.bancorym.navigation
+package project.bancorym.projectRYM.navigation
 
 sealed class AppScreens(val route: String){
     object SplashScreen: AppScreens("splash_screen")

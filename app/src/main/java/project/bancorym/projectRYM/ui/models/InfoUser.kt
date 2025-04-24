@@ -1,4 +1,4 @@
-package project.bancorym.models
+package project.bancorym.projectRYM.ui.models
 
 import android.content.Context
 import androidx.datastore.core.DataStore

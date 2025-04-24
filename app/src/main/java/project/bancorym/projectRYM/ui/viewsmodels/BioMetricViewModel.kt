@@ -1,4 +1,4 @@
-package project.bancorym.viewsmodels
+package project.bancorym.projectRYM.ui.viewsmodels
 
 import android.content.Context
 import android.os.Build
@@ -16,7 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
-import project.bancorym.navigation.AppScreens
+import project.bancorym.projectRYM.navigation.AppScreens
 
 class MyBiometricViewModel: ViewModel() {
 

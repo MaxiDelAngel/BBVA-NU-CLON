@@ -1,4 +1,4 @@
-package project.bancorym.views
+package project.bancorym.projectRYM.ui.views
 
 import android.util.Log
 import androidx.compose.foundation.indication
@@ -33,8 +33,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
-import project.bancorym.models.InfoUser
-import project.bancorym.navigation.AppScreens
+import project.bancorym.projectRYM.ui.models.InfoUser
+import project.bancorym.projectRYM.navigation.AppScreens
 
 @Composable
 fun RegisterScreen(infoUser: InfoUser, navController: NavController) {

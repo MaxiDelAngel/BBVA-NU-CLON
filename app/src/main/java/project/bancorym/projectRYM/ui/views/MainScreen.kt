@@ -1,4 +1,4 @@
-package project.bancorym.views
+package project.bancorym.projectRYM.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
-import project.bancorym.models.InfoUser
+import project.bancorym.projectRYM.ui.models.InfoUser
 
 @Composable
 fun MainScreen(infoUser: InfoUser) {

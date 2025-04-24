@@ -1,4 +1,4 @@
-package project.bancorym.navigation
+package project.bancorym.projectRYM.navigation
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -7,12 +7,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import project.bancorym.views.LoginScreen
-import project.bancorym.views.MainScreen
-import project.bancorym.views.SplashScreen
-import project.bancorym.models.InfoUser
-import project.bancorym.views.RegisterScreen
-import project.bancorym.viewsmodels.MyBiometricViewModel
+import project.bancorym.projectRYM.ui.views.LoginScreen
+import project.bancorym.projectRYM.ui.views.MainScreen
+import project.bancorym.projectRYM.ui.views.SplashScreen
+import project.bancorym.projectRYM.ui.models.InfoUser
+import project.bancorym.projectRYM.ui.views.RegisterScreen
+import project.bancorym.projectRYM.ui.viewsmodels.MyBiometricViewModel
 
 @Composable
 fun AppNavigation() {

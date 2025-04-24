@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.FragmentActivity
-import project.bancorym.navigation.AppNavigation
+import project.bancorym.projectRYM.navigation.AppNavigation
 import project.bancorym.ui.theme.BancoRYMTheme
 
 class MainActivity : FragmentActivity() {
