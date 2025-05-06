@@ -62,6 +62,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.biometric:biometric:1.4.0-alpha02")
     implementation ("com.airbnb.android:lottie-compose:6.6.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
