@@ -186,9 +186,6 @@ fun RegisterScreen(infoUser: InfoUser, navController: NavController) {
 
                                     val userId = usuarioResponse?.data?.id
 
-
-                                    Log.d("Registro Exitoso", "Usuario guardado: ID: $userId")
-
                                     val tarjeta = DataTarjetas(
                                         id = 0,
                                         numerotarjeta = tarjetaInput,
@@ -200,8 +197,6 @@ fun RegisterScreen(infoUser: InfoUser, navController: NavController) {
                                     if (tarjetaResponse.isSuccessful) {
                                         val tarjetaResponseBody = tarjetaResponse.body()
                                         val tarjetaId = tarjetaResponseBody?.data?.id
-
-                                        Log.d("ID de la tarjeta", "ID de la tarjeta: $tarjetaId")
 
                                         val movimiento = DataMovimientos(
                                             id = 0,
