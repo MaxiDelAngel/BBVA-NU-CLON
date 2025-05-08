@@ -62,8 +62,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.biometric:biometric:1.4.0-alpha02")
-    implementation ("com.airbnb.android:lottie-compose:6.6.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
-    implementation("androidx.datastore:datastore-preferences-android:1.1.0-alpha07")
+    implementation(libs.androidx.biometric)
+    implementation (libs.lottie.compose)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.datastore.preferences.android)
+
+    implementation (libs.retrofit)
+    implementation (libs.gson)
+    implementation (libs.converter.gson)
 }

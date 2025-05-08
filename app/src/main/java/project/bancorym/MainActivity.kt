@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.FragmentActivity
 import project.bancorym.projectRYM.navigation.AppNavigation
+import project.bancorym.projectRYM.repository.RetrofitClient
 import project.bancorym.ui.theme.BancoRYMTheme
 
 class MainActivity : FragmentActivity() {
@@ -20,6 +21,7 @@ class MainActivity : FragmentActivity() {
             BancoRYMTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
+                        val retrofit = RetrofitClient.webService
                         AppNavigation()
                     }
                 }
