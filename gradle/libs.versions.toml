@@ -24,6 +24,7 @@ crashlytics = "3.0.2"
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences-android = { module = "androidx.datastore:datastore-preferences-android", version.ref = "datastorePreferencesAndroid" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

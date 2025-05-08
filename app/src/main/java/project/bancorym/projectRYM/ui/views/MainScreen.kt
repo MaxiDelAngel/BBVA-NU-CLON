@@ -59,52 +59,41 @@ fun MainScreen(infoUser: InfoUser) {
         }
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .background(Color(0xFF0061A8))
                     .fillMaxWidth()
-                    .padding(20.dp)
+                    .padding(16.dp)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.jretta),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop
+                Text(
+                    text = "Hola, $savedName",
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
                 )
-
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = "Información",
+                    tint = Color.White,
+                    modifier = Modifier.size(20.dp)
+                )
                 Row(horizontalArrangement = Arrangement.SpaceAround) {
                     Icon(
                         imageVector = Icons.Default.Settings,
-                        contentDescription = "icono",
+                        contentDescription = "Configuración",
                         tint = Color.White,
                         modifier = Modifier.size(30.dp)
                     )
-                    Spacer(modifier = Modifier.width(25.dp))
+                    Spacer(modifier = Modifier.width(20.dp))
                     Icon(
                         imageVector = Icons.Default.GroupAdd,
-                        contentDescription = "icono",
+                        contentDescription = "Añadir contacto",
                         tint = Color.White,
                         modifier = Modifier.size(30.dp)
                     )
                 }
-            }
-
-            Row(
-                modifier = Modifier
-                    .background(Color(0xFF0061A8))
-                    .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 20.dp)
-            ) {
-                Text(
-                    text = "Bienvenido, $savedName",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold
-                )
             }
 
             Column(
@@ -114,10 +103,11 @@ fun MainScreen(infoUser: InfoUser) {
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Dinero Activo\n$0.00",
+                    text = "Dinero disponible\n$0.00",
                     color = Color.Black,
                     fontSize = 24.sp,
-                    modifier = Modifier.padding(top = 5.dp, bottom = 25.dp)
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 20.dp)
                 )
 
                 Row(
@@ -131,24 +121,33 @@ fun MainScreen(infoUser: InfoUser) {
                 }
             }
 
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .background(Color.White)
                     .padding(16.dp)
             ) {
-                Column {
-                    Text(
-                        text = "TARJETAS",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        color = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "CUENTAS",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = Color.Gray
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                TarjetaCard(R.drawable.nu, "$savedName $savedLastName", "2347", "Cuenta VIP", "Saldo disponible: $3500")
+                TarjetaCard(R.drawable.bbva, "$savedName $savedLastName", "9315", "Crédito", "Saldo disponible: $100")
 
-                    TarjetaCard(R.drawable.nu, "$savedName $savedLastName", "2347", "Debito")
-                    TarjetaCard(R.drawable.bbva, "$savedName $savedLastName", "9315", "Crédito")
-                }
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Crédito
+                Text(
+                    text = "CRÉDITO",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = Color.Gray
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                TarjetaCard(R.drawable.nu, "$savedName $savedLastName", "2347", "Crédito", "Crédito disponible: $200,000,000")
             }
         }
     }
@@ -158,7 +157,7 @@ fun MainScreen(infoUser: InfoUser) {
 fun FeatureButton(label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
-            contentAlignment = Alignment.TopEnd,
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .size(64.dp)
                 .clip(CircleShape)
@@ -173,9 +172,7 @@ fun FeatureButton(label: String) {
                     else -> Icons.Default.Help
                 },
                 contentDescription = "icono",
-                modifier = Modifier
-                    .size(50.dp)
-                    .align(Alignment.Center)
+                modifier = Modifier.size(30.dp)
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -189,7 +186,7 @@ fun FeatureButton(label: String) {
 }
 
 @Composable
-fun TarjetaCard(img: Int, nombre: String, terminacion: String, tipo: String) {
+fun TarjetaCard(img: Int, nombre: String, terminacion: String, tipo: String, detalle: String) {
     Card(
         elevation = CardDefaults.cardElevation(4.dp),
         modifier = Modifier.fillMaxWidth()
@@ -214,6 +211,8 @@ fun TarjetaCard(img: Int, nombre: String, terminacion: String, tipo: String) {
                 )
                 Text(text = nombre, color = Color.Black)
                 Text(text = "•$terminacion", color = Color.Gray)
+                Spacer(modifier = Modifier.height(5.dp))
+                Text(text = detalle, color = Color.Black, fontSize = 14.sp)
             }
         }
     }
