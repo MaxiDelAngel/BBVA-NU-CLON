@@ -1,6 +1,7 @@
 package project.bancorym.projectRYM.ui.views
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,20 +20,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
 import project.bancorym.R
+import project.bancorym.projectRYM.repository.RetrofitClient
+import project.bancorym.projectRYM.repository.WebService
+import project.bancorym.projectRYM.ui.models.DataGetTarjeta
 import project.bancorym.projectRYM.ui.models.InfoUser
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MainScreen(infoUser: InfoUser) {
     var selectedItem by remember { mutableStateOf(0) }
+    var cardData by remember { mutableStateOf<DataGetTarjeta?>(null) }
 
     val savedName by infoUser.name.collectAsState(initial = "")
     val savedLastName by infoUser.lastName.collectAsState(initial = "")
-    val savedPassword by infoUser.password.collectAsState(initial = "")
-    val savedEmail by infoUser.email.collectAsState(initial = "")
-    val savedPhone by infoUser.phone.collectAsState(initial = "")
     val savedCard by infoUser.card.collectAsState(initial = 0)
+
+    LaunchedEffect(savedCard) {
+        delay(5000)
+        val response = RetrofitClient.webService.getInfoTarjeta(savedCard.toString())
+        if (response.isSuccessful) {
+            cardData = response.body()?.data
+            Log.d("Tarjeta", "Tarjeta: ${response.body()}")
+        } else {
+            Log.e("Error al obtener tarjeta", "Error: ${response.errorBody()?.string()}")
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -67,26 +81,29 @@ fun MainScreen(infoUser: InfoUser) {
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
-                Text(
-                    text = "Hola, $savedName",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
-                )
-                Icon(
-                    imageVector = Icons.Default.Info,
-                    contentDescription = "Información",
-                    tint = Color.White,
-                    modifier = Modifier.size(20.dp)
-                )
-                Row(horizontalArrangement = Arrangement.SpaceAround) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Hola, $savedName",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = "Información",
+                        tint = Color.White,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
+                Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                     Icon(
                         imageVector = Icons.Default.Settings,
                         contentDescription = "Configuración",
                         tint = Color.White,
                         modifier = Modifier.size(30.dp)
                     )
-                    Spacer(modifier = Modifier.width(20.dp))
                     Icon(
                         imageVector = Icons.Default.GroupAdd,
                         contentDescription = "Añadir contacto",
@@ -103,7 +120,7 @@ fun MainScreen(infoUser: InfoUser) {
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Dinero disponible\n$0.00",
+                    text = "Dinero disponible\n${cardData?.dinero}",
                     color = Color.Black,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
@@ -134,24 +151,14 @@ fun MainScreen(infoUser: InfoUser) {
                     color = Color.Gray
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                TarjetaCard(R.drawable.nu, "$savedName $savedLastName", "2347", "Cuenta VIP", "Saldo disponible: $3500")
-                TarjetaCard(R.drawable.bbva, "$savedName $savedLastName", "9315", "Crédito", "Saldo disponible: $100")
+                TarjetaCard(R.drawable.bbva, "$savedName $savedLastName", "1111", "Debito", "Saldo disponible: ${cardData?.dinero}")
 
                 Spacer(modifier = Modifier.height(20.dp))
-
-                // Crédito
-                Text(
-                    text = "CRÉDITO",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                    color = Color.Gray
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                TarjetaCard(R.drawable.nu, "$savedName $savedLastName", "2347", "Crédito", "Crédito disponible: $200,000,000")
             }
         }
     }
 }
+
 
 @Composable
 fun FeatureButton(label: String) {

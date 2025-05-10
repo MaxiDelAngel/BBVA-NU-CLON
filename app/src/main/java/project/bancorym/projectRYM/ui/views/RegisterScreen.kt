@@ -52,7 +52,7 @@ fun RegisterScreen(infoUser: InfoUser, navController: NavController) {
     var contraseña by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
     var celular by remember { mutableStateOf("") }
-    var numero_tarjeta by remember { mutableIntStateOf(0) }
+    var numero_tarjeta by remember { mutableLongStateOf(0) }
     val coroutineScope = rememberCoroutineScope()
     var tarjetaInput by remember { mutableStateOf("") }
     var showDialog by remember { mutableStateOf(false) }
@@ -150,7 +150,7 @@ fun RegisterScreen(infoUser: InfoUser, navController: NavController) {
                 onValueChange = {
                     if (it.length <= 16) {
                         tarjetaInput = it
-                        numero_tarjeta = it.toIntOrNull() ?: 0
+                        numero_tarjeta = it.toLongOrNull() ?: 70
                     }
                 },
                 label = { Text("Número de Tarjeta") },

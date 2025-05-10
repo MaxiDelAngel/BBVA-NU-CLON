@@ -1,13 +1,16 @@
 package project.bancorym.projectRYM.ui.models
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class InfoUser (private val context: Context) {
@@ -21,7 +24,7 @@ class InfoUser (private val context: Context) {
         val PASSWORD = stringPreferencesKey("contrasena")
         val EMAIL = stringPreferencesKey("correo")
         val PHONE = stringPreferencesKey("celular")
-        val CARD = intPreferencesKey("tarjeta")
+        val CARD = longPreferencesKey("tarjeta")
     }
 
     val name: Flow<String> = context.dataStore.data.map{ informacion -> informacion[NAME] ?: "" }
@@ -29,19 +32,23 @@ class InfoUser (private val context: Context) {
     val password: Flow<String> = context.dataStore.data.map{ informacion -> informacion[PASSWORD] ?: "" }
     val email: Flow<String> = context.dataStore.data.map{ informacion -> informacion[EMAIL] ?: "" }
     val phone: Flow<String> = context.dataStore.data.map{ informacion -> informacion[PHONE] ?: "" }
-    val card: Flow<Int> = context.dataStore.data.map{ informacion -> informacion[CARD] ?: 0 }
+    val card: Flow<Long> = context.dataStore.data.map{ informacion -> informacion[CARD] ?: 0 }
 
 
 
-    suspend fun savePersonData(personName: String, personLastName: String, personPassword: String, personEmail: String, personPhone: String, personCard: Int) {
+    suspend fun savePersonData(personName: String, personLastName: String, personPassword: String, personEmail: String, personPhone: String, personCard: Long) {
         context.dataStore.edit { settings ->
             settings [NAME] = personName
             settings [LASTNAME] = personLastName
             settings [PASSWORD] = personPassword
             settings [EMAIL] = personEmail
             settings [PHONE] = personPhone
+            Log.e("TAG", "savePersonData: $personCard", )
             settings [CARD] = personCard
         }
+
+        context.dataStore.data.first().get(CARD)
+        Log.e("TAG", "GETsavePersonData: ${context.dataStore.data.first().get(CARD)}", )
     }
 
     suspend fun clearData() {
