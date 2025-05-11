@@ -38,7 +38,7 @@ fun MainScreen(infoUser: InfoUser) {
     val savedCard by infoUser.card.collectAsState(initial = 0)
 
     LaunchedEffect(savedCard) {
-        delay(5000)
+        delay(3000)
         val response = RetrofitClient.webService.getInfoTarjeta(savedCard.toString())
         if (response.isSuccessful) {
             cardData = response.body()?.data
