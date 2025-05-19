@@ -151,7 +151,8 @@ fun MainScreen(infoUser: InfoUser) {
                     color = Color.Gray
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                TarjetaCard(R.drawable.bbva, "$savedName $savedLastName", "1111", "Debito", "Saldo disponible: ${cardData?.dinero}")
+                val ultimosdigitos = cardData?.numero_tarjeta?.takeLast(4)
+                TarjetaCard(R.drawable.bbva, "$savedName $savedLastName", ultimosdigitos.toString(), "Debito", "Saldo disponible: ${cardData?.dinero}")
 
                 Spacer(modifier = Modifier.height(20.dp))
             }
